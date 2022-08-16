@@ -2,6 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import DisplayStats from './DisplayStats';
+import Header from './Header';
 
 function App() {
 
@@ -21,11 +22,11 @@ useEffect(() => {
       dataResponse: "json"
 
     }).then((res) => {
-      // console.log(res.data.teams);
       setNhlTeams(res.data.teams)
     });
   }, [])
 
+  // Sets users selection from the dropdown menu
   const handleUserChoice = (e) => {
     setUserChoice(e.target.value);
   }
@@ -35,33 +36,38 @@ useEffect(() => {
     e.preventDefault();
     const team = nhlTeams.filter(team => team.name === userChoice);
     setSelectedTeam(team)
-    console.log(team)
   }
+
+  // removes user selected team from dropdown menu
+  const remainingTeams = nhlTeams.filter(team => team.name != userChoice)
 
   return (
     <div className="App">
-        <h1>NHL Stats</h1>
-        <section>
-          <h2>Pick an Nhl Team</h2>
-          <form onSubmit={(e) => getTeam(e)}>
-            <select 
-            onChange={handleUserChoice} 
-            value={userChoice}>
-                <option value="placeholder">Pick a Team:</option>
-              {
-                nhlTeams.map(team => {
-                  return(
-                    <option key={team.id} value={team.name}>{team.name}</option>
-                  )
-                })
-              }
-            </select>
-            <button type='submit'>Show Teams Stats</button>
-          </form>
-          {/* <DisplayStats team={selectedTeam.length !== 0 ? selectedTeam : }/> */}
-          {
-            selectedTeam.length !== 0 ? <DisplayStats team={selectedTeam} /> : <p>Please Select a Team</p>
-          }
+        <Header />
+        <section className='statsSection'>
+          <div className='wrapper'>
+            <h2 className='statsHeader'>Pick an Nhl Team</h2>
+            <form onSubmit={(e) => getTeam(e)}>
+              <select 
+              onChange={handleUserChoice} 
+              value={userChoice}>
+                  <option value="placeholder" disabled>Pick a Team:</option>
+                { 
+                  remainingTeams.map(team => {
+                    return(
+                      <option key={team.id} value={team.name}>
+                        {team.name}
+                      </option>
+                    )
+                  })
+                }
+              </select>
+              <button type='submit'>Show Teams Stats</button>
+            </form>
+            {
+              selectedTeam.length !== 0 ? <DisplayStats team={selectedTeam} /> : <p>Please Select a Team</p>
+            }
+          </div>
           
         </section>
     </div>
