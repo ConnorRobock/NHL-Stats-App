@@ -6,7 +6,7 @@ import DisplayStats from './DisplayStats';
 function App() {
 
 const [nhlTeams, setNhlTeams] = useState([]);
-const [userChoice, setUserChoice] = useState([]);
+const [userChoice, setUserChoice] = useState('placeholder');
 const [selectedTeam, setSelectedTeam] = useState([]);
 
 useEffect(() => {
@@ -21,7 +21,7 @@ useEffect(() => {
       dataResponse: "json"
 
     }).then((res) => {
-      console.log(res.data.teams);
+      // console.log(res.data.teams);
       setNhlTeams(res.data.teams)
     });
   }, [])
@@ -36,8 +36,8 @@ useEffect(() => {
     const team = nhlTeams.filter(team => team.name === userChoice);
     setSelectedTeam(team)
     console.log(team)
-
   }
+
   return (
     <div className="App">
         <h1>NHL Stats</h1>
@@ -58,10 +58,12 @@ useEffect(() => {
             </select>
             <button type='submit'>Show Teams Stats</button>
           </form>
-          <DisplayStats team={selectedTeam}/>
+          {/* <DisplayStats team={selectedTeam.length !== 0 ? selectedTeam : }/> */}
+          {
+            selectedTeam.length !== 0 ? <DisplayStats team={selectedTeam} /> : <p>Please Select a Team</p>
+          }
+          
         </section>
-
-
     </div>
   );
 }
