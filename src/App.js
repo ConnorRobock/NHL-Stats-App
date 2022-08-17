@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import DisplayStats from './DisplayStats';
 import Header from './Header';
+import Footer from './Footer';
 
 function App() {
 
@@ -11,12 +12,8 @@ const [userChoice, setUserChoice] = useState('placeholder');
 const [selectedTeam, setSelectedTeam] = useState([]);
 
 useEffect(() => {
+// API call from statsapi using axios. Get Teams Array, includes stats
     axios({
-      // Sample of stats URL "https://statsapi.web.nhl.com/api/v1/people/8478483/stats?stats=statsSingleSeason&season=20212022"
-      // sample of all teams URL "https://statsapi.web.nhl.com/api/v1/teams"
-      // sample of all teams w/stats url "https://statsapi.web.nhl.com/api/v1/teams?expand=team.stats"
-      // sample of all teams w/roster url "https://statsapi.web.nhl.com/api/v1/teams?expand=team.roster&season=20192022"
-      
       url: "https://statsapi.web.nhl.com/api/v1/teams?expand=team.stats",
       method: "GET",
       dataResponse: "json"
@@ -36,10 +33,11 @@ useEffect(() => {
     e.preventDefault();
     const team = nhlTeams.filter(team => team.name === userChoice);
     setSelectedTeam(team)
+    console.log(selectedTeam, "nhlteams");
   }
 
   // removes user selected team from dropdown menu
-  const remainingTeams = nhlTeams.filter(team => team.name != userChoice)
+  const remainingTeams = nhlTeams.filter(team => team.name !== userChoice)
 
   return (
     <div className="App">
@@ -51,7 +49,7 @@ useEffect(() => {
               <select 
               onChange={handleUserChoice} 
               value={userChoice}>
-                  <option value="placeholder" disabled>Pick a Team:</option>
+                  <option value="placeholder">Pick a Team:</option>
                 { 
                   remainingTeams.map(team => {
                     return(
@@ -68,8 +66,8 @@ useEffect(() => {
               selectedTeam.length !== 0 ? <DisplayStats team={selectedTeam} /> : <p>Please Select a Team</p>
             }
           </div>
-          
         </section>
+        <Footer />
     </div>
   );
 }
