@@ -77,6 +77,15 @@ form {
     padding: 50px 0 50px 0;
 }
 
+.flexContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.statsContainer {
+    width: 30%;
+}
+
 select {
     border: black solid 1.5px;
     border-radius: 5px;
@@ -110,11 +119,8 @@ p {
 /* footer */
 
 footer {
-    /* background-image: url(./Assets/istockphoto-166319867-612x612.jpg); */
     background-color: #0042827d;
-    background-position: center;
-    background-size: cover;
-    opacity: 0.8;
+    opacity: 0.7;
     
 }
 
@@ -123,6 +129,24 @@ footer p {
     opacity: 1;
     padding: 25px;
 }
+
+/* Media Queries */
+@media (max-width: 1050px) {
+    .statsContainer {
+        width: 50%;
+    }
+}
+
+@media (max-width: 525px) {
+    p {
+        font-size: 1rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+}
+
 
 
 

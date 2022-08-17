@@ -47,11 +47,12 @@ useEffect(() => {
             <h2 className='statsHeader'>Pick an Nhl Team</h2>
             <form onSubmit={(e) => getTeam(e)}>
               <select 
+              id="dropdown"
               onChange={handleUserChoice} 
               value={userChoice}>
-                  <option value="placeholder">Pick a Team:</option>
+                  <option value="placeholder" disabled>Pick a Team:</option>
                 { 
-                  remainingTeams.map(team => {
+                  nhlTeams.map(team => {
                     return(
                       <option key={team.id} value={team.name}>
                         {team.name}
