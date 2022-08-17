@@ -110,7 +110,8 @@ p {
 /* footer */
 
 footer {
-    background-image: url(./Assets/istockphoto-166319867-612x612.jpg);
+    /* background-image: url(./Assets/istockphoto-166319867-612x612.jpg); */
+    background-color: #0042827d;
     background-position: center;
     background-size: cover;
     opacity: 0.8;
