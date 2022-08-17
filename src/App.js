@@ -36,9 +36,6 @@ useEffect(() => {
     console.log(selectedTeam, "nhlteams");
   }
 
-  // removes user selected team from dropdown menu
-  // const remainingTeams = nhlTeams.filter(team => team.name !== userChoice)
-
   return (
     <div className="App">
         <Header />
